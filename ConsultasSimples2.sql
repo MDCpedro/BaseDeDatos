@@ -2,10 +2,15 @@
 SELECT ll.titol, ed.nom FROM llibre, editorial ed WHERE ll.id_editorial = ed.id;
 SELECT ll.titol, ed.nom FROM llibre ll JOIN editorial ed ON ll.id_editorial = ed.id;
 -- Repeteix la consulta anterior excloent l'editorial Planeta
-SELECT titol, id_editorial
-FROM llibre
-HAVING editorial <> 'Planeta';
---• Consulta la concatenació del nom i l’autor de cada llibre, separats per ‘ - ‘.
+SELECT ll.titol, ed.nom FROM llibre ll JOIN editorial ed ON ll.id_editorial = ed.id;
+WHERE ed.nom != "Planeta";
+
+-- Consulta els noms dels llibres i el nom del seu autor
+SELECT ll.titol, au.nom ||''|| FROM LLIBRE ll JOIN AUTOR au, AUTOR_LLIBRE ON ll.id = aull.id_llibre
+JOIN AUTOR au aull.id_autor = au.id;
+WHERE ll.an < 1950;
+
+--• Consulta la concatenacióCT  del nom i l’autor de cada llibre, separats per ‘ - ‘.
 
 --• Consulta els autors, però separant-los en noms i llinatges. Considera que estan separats pel primer espai.
 
