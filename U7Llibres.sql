@@ -77,3 +77,27 @@ FROM AUTOR
 JOIN AUTOR_LLIBRE ON AUTOR.ID = AUTOR_LLIBRE.ID_autor
 JOIN LLIBRE ON AUTOR_LLIBRE.ID_llibre = LLIBRE.ID
 GROUP BY AUTOR.nom, AUTOR.cognoms;
+
+-- EXTRA (Diapositivas)
+
+-- Retorna els llibres que tenguin entre 5 i 10 exempalrs. Empra BETWEEN
+SELECT titol, exemplars FROM llibre WHERE exemplars BETWEEN 5 AND 9;
+
+-- Retorna el titol de cada llibre i el seu autor. Si no té autor, ha de sortir "Desconegut"
+
+SELECT titol, nvl2(au.nom, au.nom||''||au.cognoms, 'Desconegut')
+FROM llibre ll
+LEFT JOIN autor_llibre al ON al.id_llibre = ll.id
+LEFT JOIN autor au ON au.id = al.id_autor;
+
+-- Retorna el nom de cada autor i si és europeu (ESP, GBR) o no (USA,JPN).
+SELECT nom,
+    CASE 
+        WHEN nacionalitat in ('ESP', 'GBR') THEN 'EU'
+        WHEN nacionalitat in ('USA', 'JPN') THEN 'NO EU'
+    END
+FROM autor
+
+-- Retorna els llibres llançats a l’any de naixement de qualsevol autor. Empra IN.
+
+SELECT titol, an FROM llibre WHERE an IN(SELECT EXTRACT(YEAR FROM data_naix) FROM AUTOR);
